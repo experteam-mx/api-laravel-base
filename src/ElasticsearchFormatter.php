@@ -16,7 +16,7 @@ class ElasticsearchFormatter
     {
         foreach ($logger->getHandlers() as $handler) {
             $handler->setFormatter(new LineFormatter(
-                "[%datetime%] app.%level_name%: %message% %context% %extra% \n"
+                "[%datetime%] app.%level_name%: %message% %context% %extra%\n"
             ));
         }
     }
@@ -35,7 +35,7 @@ class ElasticsearchFormatter
                 'username'=>$user->username
             ),
             'channel' => $channel,
-            'timestamp' => date_create(),
+            'timestamp' => date('Y-m-d\TH:i:s'),
         );
 
         if(!empty($data))
