@@ -14,7 +14,10 @@ class ApiLaravelBaseServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        // Elastic Search Log
+        app()->bind('ESLog', function () {
+            return new \Experteam\ApiLaravelBase\ESLog();
+        });
     }
 
     /**
