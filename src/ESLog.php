@@ -13,13 +13,16 @@ class ESLog extends Log
         $user = Auth::user();
         $context = array(
             'id' =>  uniqid(),
-            'timestamp' => date_create(),
-            'user' => array(
+            'timestamp' => date_create()
+        );
+
+        if($user){
+            $context['user'] = array(
                 'id'=>$user->id,
                 'username'=>$user->username
-            ),
+            );
+        }
 
-        );
         return $context;
 
     }
