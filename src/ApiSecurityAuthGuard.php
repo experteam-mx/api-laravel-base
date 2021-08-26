@@ -44,7 +44,8 @@ class ApiSecurityAuthGuard implements Guard
     public function user()
     {
 
-        $userData = Redis::get('security.token:' . \request()->bearerToken());
+        $userData = Redis::get('security.token:' . \request()->bearerToken())
+            ?? Redis::get('security.appkey:' . \request()->headers->get('AppKey'));
         $userData = json_decode($userData, true);
 
         if (empty($userData) ||
