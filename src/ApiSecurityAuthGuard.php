@@ -55,6 +55,8 @@ class ApiSecurityAuthGuard implements Guard
         $redisUser = new User();
 
         $redisUser->fill($userData);
+        $redisUser->id = $userData['id'] ?? null;
+        $redisUser->username = $userData['username'] ?? null;
 
         $redisUser->permissions = $userData['permissions'];
         $redisUser->session = $userData['session'];
