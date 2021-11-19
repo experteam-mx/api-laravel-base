@@ -7,7 +7,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 class AccessPermission
 {
 
-    public static function validatePermission(array $dataPermissons){
+    public function validatePermission(array $dataPermissons){
         $validate = false;
         foreach ($dataPermissons as $permisson){
             $namePermison = $permisson;

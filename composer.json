@@ -28,9 +28,11 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Experteam\\ApiLaravelBase\\ApiLaravelBaseServiceProvider",
-                "Experteam\\ApiLaravelBase\\AccessPermission"
-            ]
+                "Experteam\\ApiLaravelBase\\ApiLaravelBaseServiceProvider"
+            ],
+            "aliases": {
+                "AccessPermission": "Experteam\\ApiLaravelBase\\Facades\\AccessPermission"
+            }
         }
     }
 }
