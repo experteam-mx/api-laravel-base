@@ -7,11 +7,14 @@ use Illuminate\Auth\Access\AuthorizationException;
 class AccessPermission
 {
 
-    public function validatePermission(array $dataPermissons){
+    public static function validatePermission(array $dataPermissons){
+
         $validate = false;
+
         foreach ($dataPermissons as $permisson){
             $namePermison = $permisson;
             $search = array_search($permisson,\Illuminate\Support\Facades\Auth::user()->permissions);
+
             if(is_numeric($search))
                 $validate = true;
                 break;
