@@ -28,7 +28,8 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Experteam\\ApiLaravelBase\\ApiLaravelBaseServiceProvider"
+                "Experteam\\ApiLaravelBase\\ApiLaravelBaseServiceProvider",
+                "Experteam\\ApiLaravelBase\\AccessPermission"
             ]
         }
     }

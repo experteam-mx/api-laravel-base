@@ -18,6 +18,11 @@ class ApiLaravelBaseServiceProvider extends ServiceProvider
         app()->bind('ESLog', function () {
             return new \Experteam\ApiLaravelBase\ESLog();
         });
+
+        // Access Permisson
+        app()->bind('AccessPermission', function () {
+            return new \Experteam\ApiLaravelBase\AccessPermission();
+        });
     }
 
     /**
