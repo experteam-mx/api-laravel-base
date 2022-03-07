@@ -32,7 +32,7 @@
             ],
             "aliases": {
                 "AccessPermission": "Experteam\\ApiLaravelBase\\Facades\\AccessPermission",
-                "ActiveEntities": "Experteam\\ApiLaravelBase\\Facades\\ActiveEntities"
+                "ActiveEntities": "Experteam\\ApiLaravelBase\\Facades\\ActiveEntitiesFacade"
             }
         }
     }

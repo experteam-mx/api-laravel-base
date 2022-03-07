@@ -2,14 +2,16 @@
 
 namespace Experteam\ApiLaravelBase\Facades;
 
+use Illuminate\Support\Facades\Facade;
+use Experteam\ApiLaravelBase\ActiveEntities;
 
-class ActiveEntitiesFacade extends \Illuminate\Support\Facades\Facade
+class ActiveEntitiesFacade extends Facade
 {
 
     protected static function getFacadeAccessor()
     {
 
-        return 'ActiveEntities';
+        return ActiveEntities::class;
 
     }
 
