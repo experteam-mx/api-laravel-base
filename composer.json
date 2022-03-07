@@ -31,7 +31,8 @@
                 "Experteam\\ApiLaravelBase\\ApiLaravelBaseServiceProvider"
             ],
             "aliases": {
-                "AccessPermission": "Experteam\\ApiLaravelBase\\Facades\\AccessPermission"
+                "AccessPermission": "Experteam\\ApiLaravelBase\\Facades\\AccessPermission",
+                "ActiveEntities": "Experteam\\ApiLaravelBase\\Facades\\ActiveEntities"
             }
         }
     }
