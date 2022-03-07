@@ -5,7 +5,7 @@ namespace Experteam\ApiLaravelBase;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Str;
 
-class ActiveEntitiesChecker
+class ActiveEntities
 {
 
     public function check(string $modelClass, array $session = [])
