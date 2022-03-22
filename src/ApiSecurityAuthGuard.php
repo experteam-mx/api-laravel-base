@@ -60,6 +60,7 @@ class ApiSecurityAuthGuard implements Guard
 
         $redisUser->permissions = $userData['permissions'];
         $redisUser->session = $userData['session'];
+        $redisUser->role = $userData['role'];
 
         return $redisUser;
 
