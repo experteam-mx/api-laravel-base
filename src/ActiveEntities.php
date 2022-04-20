@@ -26,15 +26,21 @@ class ActiveEntities
         ];
 
         $actives = [];
-        foreach ($fromRedis as [$key, $id]) {
-            $levelActives = json_decode(Redis::hget($key, $id));
+        $inactives = [];
 
-            if (is_null($levelActives))
+        foreach ($fromRedis as [$key, $id]) {
+            $levelConfigured = json_decode(Redis::hget($key, $id), true);
+
+            if (is_null($levelConfigured))
                 continue;
 
+            $levelActives = array_keys(array_filter($levelConfigured, function($v) { return $v; }));
             $actives = empty($actives) ? $levelActives : array_intersect($actives, $levelActives);
+
+            $levelInactives = array_keys(array_filter($levelConfigured, function($v) { return !$v; }));
+            $inactives = empty($inactives) ? $levelInactives : array_intersect($inactives, $levelInactives);
         }
 
-        return $actives;
+        return array_diff($actives, $inactives);
     }
 }
