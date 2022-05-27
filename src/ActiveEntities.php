@@ -26,8 +26,7 @@ class ActiveEntities
             [$prefix . 'Installation', $session['installation_id'] ?? null],
         ];
 
-        $actives = null;
-        $inactives = null;
+        $actives = $inactives = null;
 
         foreach ($fromRedis as [$key, $id]) {
             $levelConfigured = json_decode(Redis::hget($key, $id), true);
@@ -48,6 +47,8 @@ class ActiveEntities
             $inactives = (is_null($inactives) ? $levelInactives : array_intersect($inactives, $levelInactives));
         }
 
+        $actives = ($actives ?? []);
+        $inactives = ($inactives ?? []);
         return array_diff($actives, $inactives);
     }
 }
