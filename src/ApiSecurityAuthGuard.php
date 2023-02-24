@@ -69,7 +69,7 @@ class ApiSecurityAuthGuard implements Guard
     public function id()
     {
 
-        return $this->user()->id;
+        return $this->user()?->id;
 
     }
 
@@ -88,5 +88,11 @@ class ApiSecurityAuthGuard implements Guard
         return $this;
 
     }
+
+    public function hasUser()
+    {
+        return $this->check();
+    }
+
 
 }
