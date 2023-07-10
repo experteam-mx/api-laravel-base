@@ -16,9 +16,10 @@
         }
     ],
     "require": {
-        "php": ">=7.2 || 8.0",
+        "php": ">=8.0.2",
         "ext-json": "*",
-        "illuminate/support": ">=5.4.0"
+        "illuminate/support": "^10.14",
+        "illuminate/http": "^10.14"
     },
     "autoload": {
         "psr-4": {
