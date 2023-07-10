@@ -1,1 +1,8 @@
 /.idea/
+/docker-compose.yml
+/composer.lock
+/.bash_history
+/vendor/
+/.cache/
+/.config/
+/.local/
