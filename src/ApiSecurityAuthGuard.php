@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Experteam\ApiLaravelBase;
-
 
 use App\Models\User;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -14,17 +12,10 @@ use Illuminate\Support\Facades\Redis;
 class ApiSecurityAuthGuard implements Guard
 {
 
-    private $request;
-    private $provider;
-    private $user;
+    private $user = null;
 
-    public function __construct(UserProvider $provider, Request $request)
+    public function __construct(private UserProvider $provider, private Request $request)
     {
-
-        $this->request = $request;
-        $this->provider = $provider;
-        $this->user = null;
-
     }
 
     public function guest()
@@ -43,6 +34,9 @@ class ApiSecurityAuthGuard implements Guard
 
     public function user()
     {
+        if ($this->user != null) {
+            return $this->user;
+        }
 
         $userData = Redis::get('security.token:' . \request()->bearerToken())
             ?? Redis::get('security.appkey:' . \request()->headers->get('AppKey'));
@@ -62,7 +56,9 @@ class ApiSecurityAuthGuard implements Guard
         $redisUser->session = $userData['session'] ?? null;
         $redisUser->role = $userData['role'] ?? null;
 
-        return $redisUser;
+        $this->user = $redisUser;
+
+        return $this->user;
 
     }
 
