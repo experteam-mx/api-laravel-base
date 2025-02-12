@@ -23,6 +23,11 @@ class ApiLaravelBaseServiceProvider extends ServiceProvider
         app()->bind('AccessPermission', function () {
             return new \Experteam\ApiLaravelBase\AccessPermission();
         });
+
+        // Business Days
+        app()->bind('BusinessDays', function () {
+            return new \Experteam\ApiLaravelBase\BusinessDays();
+        });
     }
 
     /**
