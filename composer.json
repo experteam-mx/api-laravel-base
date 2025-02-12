@@ -33,6 +33,7 @@
             ],
             "aliases": {
                 "AccessPermission": "Experteam\\ApiLaravelBase\\Facades\\AccessPermission",
+                "BusinesssDays": "Experteam\\ApiLaravelBase\\Facades\\BusinessDaysFacade",
                 "ActiveEntities": "Experteam\\ApiLaravelBase\\Facades\\ActiveEntitiesFacade"
             }
         }
