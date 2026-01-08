@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Redis;
 
 class ApiSecurityAuthGuard implements Guard
 {
-
     private $user = null;
 
     public function __construct(private UserProvider $provider, private Request $request)
@@ -20,16 +19,12 @@ class ApiSecurityAuthGuard implements Guard
 
     public function guest()
     {
-
         return !$this->check();
-
     }
 
     public function check()
     {
-
         return !empty($this->user());
-
     }
 
     public function user()
@@ -43,8 +38,9 @@ class ApiSecurityAuthGuard implements Guard
         $userData = json_decode($userData, true);
 
         if (empty($userData) ||
-            empty($userData['permissions']))
+            empty($userData['permissions'])) {
             return false;
+        }
 
         $redisUser = new User();
 
@@ -59,30 +55,23 @@ class ApiSecurityAuthGuard implements Guard
         $this->user = $redisUser;
 
         return $this->user;
-
     }
 
     public function id()
     {
-
         return $this->user()?->id;
-
     }
 
     public function validate(array $credentials = [])
     {
-
         return Redis::has('security.token:' . \request()->bearerToken());
-
     }
 
     public function setUser(Authenticatable $user)
     {
-
         $this->user = $user;
 
         return $this;
-
     }
 
     public function hasUser()
@@ -90,5 +79,13 @@ class ApiSecurityAuthGuard implements Guard
         return $this->check();
     }
 
+    public function logout()
+    {
+        $this->user = null;
+    }
 
+    public function forgetUser()
+    {
+        $this->user = null;
+    }
 }
