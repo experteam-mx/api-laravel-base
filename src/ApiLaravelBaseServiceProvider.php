@@ -3,6 +3,7 @@
 namespace Experteam\ApiLaravelBase;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\ServiceProvider;
 
 class ApiLaravelBaseServiceProvider extends ServiceProvider
@@ -46,6 +47,8 @@ class ApiLaravelBaseServiceProvider extends ServiceProvider
             );
 
         });
+
+        Queue::before(fn() => RoleScope::swap(null));
 
     }
 }
