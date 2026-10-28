@@ -2,7 +2,7 @@
 
 namespace Experteam\ApiLaravelBase;
 
-use App\Models\User;
+use Experteam\ApiLaravelBase\Models\User;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\UserProvider;
