@@ -51,5 +51,30 @@ try {
 }
 ```
 
+### Supervisor FATAL alert
+
+`experteam:supervisor:fatal-alert` is a Supervisor event listener. When a worker reaches FATAL it emails support through the API Services email route, retrying once on a connection error, and logs the event to the `ElasticSearch` channel without going through Redis. A rejected or unreachable email route is logged too.
+
+Require this version before adding the listener: if the command does not exist, the listener itself ends in FATAL. Register it in `deploy/supervisor`, with its logs in the `/var/log/supervisord.log.d` pod volume so they survive a container restart:
+```
+[eventlistener:supervisor_fatal_alert]
+command=php -d display_errors=stderr /opt/app-root/src/artisan experteam:supervisor:fatal-alert
+events=PROCESS_STATE_FATAL
+buffer_size=50
+autostart=true
+autorestart=true
+startsecs=1
+startretries=35
+stderr_logfile=/var/log/supervisord.log.d/supervisor_fatal_alert.err.log
+stdout_logfile=/var/log/supervisord.log.d/supervisor_fatal_alert.out.log
+```
+The listener's stdout carries the Supervisor protocol, so nothing else in the process may write to it. A stray line makes Supervisor stop sending events while the process keeps running.
+
+It reads `DHL_API_SERVICES_URL` and `AUTH_MASTER_APP_KEY`, the recipient from `SUPERVISOR_FATAL_ALERT_EMAIL` and the namespace from `MY_POD_NAMESPACE`, which the deployment template sets from `metadata.namespace`. The pod name is the container host name. Run it with `--test` to send a test email.
+
+The email is the HTML template in `resources/supervisor-fatal-alert.html`, with the DHL colors and every value escaped. It uses Poppins where the mail client loads web fonts and Arial in Outlook.
+
+The email tells support that OpenShift restarts the container on its own, which holds only when the deployment has the liveness probe that fails while a Supervisor program is FATAL.
+
 ### License
 [MIT license](https://opensource.org/licenses/MIT).

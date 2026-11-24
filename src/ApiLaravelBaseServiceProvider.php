@@ -2,6 +2,7 @@
 
 namespace Experteam\ApiLaravelBase;
 
+use Experteam\ApiLaravelBase\Supervisor\SupervisorFatalAlertCommand;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\ServiceProvider;
@@ -29,6 +30,8 @@ class ApiLaravelBaseServiceProvider extends ServiceProvider
         app()->bind('BusinessDays', function () {
             return new \Experteam\ApiLaravelBase\BusinessDays();
         });
+
+        $this->mergeConfigFrom(__DIR__ . '/../config/supervisor-fatal-alert.php', 'supervisor-fatal-alert');
     }
 
     /**
@@ -49,6 +52,10 @@ class ApiLaravelBaseServiceProvider extends ServiceProvider
         });
 
         Queue::before(fn() => RoleScope::swap(null));
+
+        if ($this->app->runningInConsole()) {
+            $this->commands([SupervisorFatalAlertCommand::class]);
+        }
 
     }
 }
